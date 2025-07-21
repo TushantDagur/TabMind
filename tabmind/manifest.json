@@ -1,0 +1,24 @@
+{
+    "manifest_version" : 3,
+    "name": "TabMind - Smart Tab Context Memory",
+    "version" : "1.0",
+    "description" : "Reminds you what a tab was about after returning to it later.",
+    "permissions" : ["tabs","storage","scripting"],
+    "background" : {
+        "service_worker" : "background.js"
+    },
+    "content_scripts" : [
+        {
+            "matches" : ["<all_urls>"],
+            "js" : ["content_js"],
+            "run_at" : "document_idle"
+        }
+    ],
+    "action" : {
+        "default_popup" : "popup.html",
+        "default_icon" : "icons/main.png"
+    },
+    "icons" : {
+        "main" : "icons/main.png"
+    }
+}
