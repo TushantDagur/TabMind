@@ -16,9 +16,14 @@
     ],
     "action" : {
         "default_popup" : "popup.html",
-        "default_icon" : "icons/main.png"
+        "default_title" : "TabMind - Smart Tab Context Memory",
+        "default_icon" : {
+            "16" : "icons/main.png",
+            "24" : "icons/main.png",
+            "32" : "icons/main.png"
+        }
     },
     "icons" : {
-        "main" : "icons/main.png"
+        "32" : "icons/main.png"
     }
 }
