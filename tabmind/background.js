@@ -1,9 +1,25 @@
 chrome.tabs.onActivated.addListener((activeInfo) => {
     chrome.tabs.get(activeInfo.tabId, (tab) => {
         const url = tab.url;
-        const timeStamp = Date.now();
+        const currentTimeStamp = Date.now();
+        const key = `tab_${activeInfo.tabId}`;
 
-        saveTabVisit(activeInfo.tabId,url,timeStamp);
+        chrome.storage.local.get([key], (result) =>{
+            const previousData =  result[key];
+
+            if(previousData){
+                const lastTimeStamp  = previousData.timeStamp;
+                const timeDifference = currentTimeStamp - lastTimeStamp;
+
+                // Stale for 5 hrs (as time in ms)
+                if(timeDifference > 5*60*60*1000){
+                    console.log(`🕒 Stale Tab Detacted : ${url}`);
+                }
+            }
+        })
+
+        // Always update visit time
+        saveTabVisit(activeInfo.tabId,url,currentTimeStamp);
     });
 });
 
