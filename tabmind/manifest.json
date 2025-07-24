@@ -1,29 +1,30 @@
 {
-    "manifest_version" : 3,
+    "manifest_version": 3,
     "name": "TabMind - Smart Tab Context Memory",
-    "version" : "1.0",
-    "description" : "Reminds you what a tab was about after returning to it later.",
-    "permissions" : ["tabs","storage","scripting"],
-    "background" : {
-        "service_worker" : "background.js"
+    "version": "1.0",
+    "description": "Reminds you what a tab was about after returning to it later.",
+    "permissions": ["tabs","storage","scripting"],
+    "host_permissions": ["<all_urls>"],
+    "background": {
+        "service_worker": "background.js"
     },
-    "content_scripts" : [
+    "content_scripts": [
         {
-            "matches" : ["<all_urls>"],
-            "js" : ["content_js"],
-            "run_at" : "document_idle"
+            "matches": ["<all_urls>"],
+            "js": ["content.js"],
+            "run_at": "document_idle"
         }
     ],
-    "action" : {
-        "default_popup" : "popup.html",
-        "default_title" : "TabMind - Smart Tab Context Memory",
-        "default_icon" : {
-            "16" : "icons/main.png",
-            "24" : "icons/main.png",
-            "32" : "icons/main.png"
+    "action": {
+        "default_popup": "popup.html",
+        "default_title": "TabMind - Smart Tab Context Memory",
+        "default_icon": {
+            "16": "icons/main.png",
+            "24": "icons/main.png",
+            "32": "icons/main.png"
         }
     },
-    "icons" : {
-        "32" : "icons/main.png"
+    "icons": {
+        "32": "icons/main.png"
     }
 }
