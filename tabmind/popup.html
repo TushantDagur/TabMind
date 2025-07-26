@@ -1,0 +1,67 @@
+<!-- popup.html -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>TabMind</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 16px;
+            min-width: 350px;
+            background-color: #f9f9f9;
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #333;
+            font-size: 18px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            font-size: 14px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #eee;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .empty {
+            margin-top: 16px;
+            font-style: italic;
+            color: #777;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>TabMind - Smart Tab Context Memory</h2>
+    <table id="notesTable">
+        <thead>
+            <tr>
+                <th> URL</th>
+                <th> Note</th>
+            </tr>
+        </thead>
+        <tbody id="notesBody"></tbody>
+    </table>
+    <div class="empty" id="noNotesMessage" style="display: none;">No saved tab notes found.</div>
+
+    <script src="popup.js"></script>
+</body>
+
+</html>

@@ -1,17 +1,10 @@
-console.log("✅ TabMind content script injected and running.");
-
-// Listen for messages from background.js
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.type === "STALE_TAB") {
-        console.log("📌 Reminder from TabMind: ", message);
-
         const minutesAgo = Math.floor((Date.now() - message.lastVisit) / (1000 * 60));
 
-        // Remove any existing popup to prevent overlap
         const existing = document.getElementById("tabmind-reminder");
-        if(existing)    existing.remove();
+        if (existing) existing.remove();
 
-        // Main container for the reminder popup
         const reminder = document.createElement('div');
         reminder.id = "tabmind-reminder";
         reminder.style.cssText = `
@@ -28,14 +21,12 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             max-width: 300px;
         `;
 
-        // Text message
         const messageText = document.createElement('div');
         messageText.innerText = `⏳ You last visited this tab ${minutesAgo} minute(s) ago.`;
         reminder.appendChild(messageText);
 
-        // Close Button
         const closeButton = document.createElement("span");
-        closeButton.innerText = "❌"
+        closeButton.innerText = "❌";
         closeButton.title = "Close";
         closeButton.style.cssText = `
             position: fixed;
@@ -44,17 +35,15 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             cursor: pointer;
             color: #bbb;
         `;
-        closeButton.onclick = ()=> reminder.remove();
+        closeButton.onclick = () => reminder.remove();
         reminder.appendChild(closeButton);
 
-        // Add Note button
         const noteButton = document.createElement('button');
         noteButton.innerText = "📝 Add Note";
         noteButton.style.cssText = `
-            margin: auto;
-            display : block;
-            // background-color: #007BFF;
-            // color: white;
+            margin-top: 10px;
+            background-color: #007BFF;
+            color: white;
             border: none;
             padding: 6px 12px;
             border-radius: 4px;
@@ -62,12 +51,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         `;
         reminder.appendChild(noteButton);
 
-        // Add the reminder box to the page
         document.body.appendChild(reminder);
 
-        // Handle note button click
         noteButton.addEventListener("click", () => {
-            // Prevent duplicate input
             if (document.getElementById("tabmind-note-input")) return;
 
             const noteInput = document.createElement("textarea");
@@ -81,15 +67,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                 font-size: 14px;
                 color: black;
             `;
-
-            // Fetch and pre-fill existing note for this tab URL
-            const url = window.location.href;
-            chrome.storage.local.get(url, (data) => {
-                if (data[url]) {
-                    noteInput.value = data[url];
-                }
-            });
-
 
             const saveButton = document.createElement("button");
             saveButton.innerText = "💾 Save";
@@ -111,22 +88,18 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             saveButton.addEventListener("click", () => {
                 const note = noteInput.value.trim();
                 if (note) {
-                    console.log("📝 Saved Note:", note);
-                    saveButton.innerText = "✅ Saved!";
-
-                    const url = window.location.href;
-                    chrome.storage.local.set({[url] : note}, () => {
-                        console.log("🧠 Note saved for URL:", url);
+                    chrome.runtime.sendMessage({ type: "SAVE_NOTE", note }, (response) => {
+                        if (response?.status === "success") {
+                            saveButton.innerText = "✅ Saved!";
+                            setTimeout(() => reminder.remove(), 1500);
+                        } else {
+                            saveButton.innerText = "❌ Failed!";
+                        }
                     });
-
-                    setTimeout(() => {
-                        reminder.remove();
-                    }, 1500);
                 }
             });
         });
 
-        // Don't auto-remove if user is typing
         setTimeout(() => {
             if (!document.getElementById("tabmind-note-input")) {
                 reminder.remove();

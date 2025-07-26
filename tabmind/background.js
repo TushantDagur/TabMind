@@ -7,23 +7,15 @@ chrome.tabs.onActivated.addListener((activeInfo) => {
 
             chrome.storage.local.get([key], (result) => {
                 const previousData = result[key];
-
                 if (previousData) {
                     const lastTimeStamp = previousData.timeStamp;
                     const timeDifference = currentTimeStamp - lastTimeStamp;
-
-                    // Stale for 1 min (for testing; increase for real use)
                     if (timeDifference > 1 * 60 * 1000) {
-                        console.log(`🕒 Stale Tab Detected : ${url}`);
-
-                        // ✅ Check if content script is injected/allowed
                         chrome.scripting.executeScript({
                             target: { tabId: activeInfo.tabId },
                             files: ['content.js']
                         }, () => {
-                            if (chrome.runtime.lastError) {
-                                console.warn("⚠️ Manual injection failed:", chrome.runtime.lastError.message);
-                            } else {
+                            if (!chrome.runtime.lastError) {
                                 chrome.tabs.sendMessage(activeInfo.tabId, {
                                     type: "STALE_TAB",
                                     url: url,
@@ -33,8 +25,6 @@ chrome.tabs.onActivated.addListener((activeInfo) => {
                         });
                     }
                 }
-
-                // ✅ Always update visit timestamp
                 saveTabVisit(activeInfo.tabId, url, currentTimeStamp);
             });
         }
@@ -43,9 +33,23 @@ chrome.tabs.onActivated.addListener((activeInfo) => {
 
 function saveTabVisit(tabId, url, timeStamp) {
     const key = `tab_${tabId}`;
-    const data = { url, timeStamp };
-
-    chrome.storage.local.set({ [key]: data }, () => {
-        console.log(`💾 Tab ${tabId} saved : `, data);
-    });
+    chrome.storage.local.set({ [key]: { url, timeStamp } });
 }
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.type === "SAVE_NOTE" && sender.tab) {
+        const url = sender.tab.url;
+        const tabId = sender.tab.id;
+        chrome.storage.local.set({
+            [url]: { note: message.note, tabId: tabId }
+        }, () => {
+            sendResponse({ status: "success" });
+        });
+        return true; // keep sendResponse alive
+    }
+
+    if (message.type === "FOCUS_TAB") {
+        chrome.tabs.update(message.tabId, { active: true });
+        chrome.windows.update(message.windowId || chrome.windows.WINDOW_ID_CURRENT, { focused: true });
+    }
+});
