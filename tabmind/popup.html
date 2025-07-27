@@ -1,8 +1,9 @@
 <!-- popup.html -->
-<!DOCTYPE html>
-<html>
-
-<head>
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TabMind</title>
     <style>
         body {
@@ -11,19 +12,19 @@
             min-width: 350px;
             background-color: #f9f9f9;
         }
-
+    
         h2 {
             margin-top: 0;
             color: #333;
             font-size: 18px;
         }
-
+    
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 12px;
         }
-
+    
         th,
         td {
             padding: 8px;
@@ -31,30 +32,30 @@
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
-
+    
         th {
             background-color: #eee;
         }
-
+    
         tr:hover {
             background-color: #f1f1f1;
         }
-
+    
         .empty {
             margin-top: 16px;
             font-style: italic;
             color: #777;
         }
     </style>
-</head>
-
-<body>
+ </head>
+ <body>
     <h2>TabMind - Smart Tab Context Memory</h2>
     <table id="notesTable">
         <thead>
             <tr>
                 <th> URL</th>
                 <th> Note</th>
+                <th> 🗑️ </th>
             </tr>
         </thead>
         <tbody id="notesBody"></tbody>

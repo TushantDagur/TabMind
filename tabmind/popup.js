@@ -28,8 +28,30 @@ document.addEventListener("DOMContentLoaded", () => {
             const noteCell = document.createElement("td");
             noteCell.innerText = data.note;
 
+            const dltCell = document.createElement("td");
+            const dltButton = document.createElement("button");
+            dltButton.innerText = "Delete";
+            dltButton.style.cssText = `
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        `;
+            
+            dltButton.onclick = () => {
+                if (confirm("Are you sure you want to delete this note?")){
+                    chrome.storage.local.remove(url, () => {
+                        row.remove();
+                    });
+                }
+            };
+            dltCell.appendChild(dltButton);
+
             row.appendChild(urlCell);
             row.appendChild(noteCell);
+            row.appendChild(dltCell);
             tbody.appendChild(row);
         }
     });
