@@ -41,6 +41,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         const noteButton = document.createElement('button');
         noteButton.innerText = "📝 Add Note";
         noteButton.style.cssText = `
+            display : block;
+            margin : auto;
             margin-top: 10px;
             background-color: #007BFF;
             color: white;
