@@ -59,6 +59,18 @@
             font-style: italic;
             color: #777;
         }
+
+        #clearAllBtn {
+            background-color: #dc3545;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            display: block;
+            margin: auto;
+            margin-top: 5px;
+            padding: 10px 20px;
+        }
     </style>
 </head>
 
@@ -76,6 +88,7 @@
         <tbody id="notesBody"></tbody>
     </table>
     <div class="empty" id="noNotesMessage" style="display: none;">No saved tab notes found.</div>
+    <button id="clearAllBtn"> 🗑️ Clear All Notes </button>
 
     <script src="popup.js"></script>
 </body>

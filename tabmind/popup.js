@@ -71,5 +71,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             });
         });
+
+        // clear all notes
+        document.getElementById("clearAllBtn").addEventListener("click", () => {
+            if (confirm("Are you sure you want to delete all notes?")){
+                chrome.storage.local.clear(() => {
+                    location.reload(); //refresh popup to reflet cleared state
+                });
+            }
+        });
     });
 });
