@@ -1,7 +1,8 @@
 <!-- popup.html -->
- <!DOCTYPE html>
- <html lang="en">
- <head>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TabMind</title>
@@ -12,7 +13,7 @@
             min-width: 350px;
             background-color: #bdbdbd;
         }
-    
+
         h2 {
             color: #333;
             display: block;
@@ -20,13 +21,23 @@
             margin: auto;
             text-align: center;
         }
-    
+
+        #searchInput {
+            width: 85%;
+            margin: 15px auto;
+            display: block;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 12px;
         }
-    
+
         th,
         td {
             padding: 8px;
@@ -34,24 +45,26 @@
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
-    
+
         th {
             background-color: #eee;
         }
-    
+
         tr:hover {
             background-color: #f1f1f1;
         }
-    
+
         .empty {
             margin-top: 16px;
             font-style: italic;
             color: #777;
         }
     </style>
- </head>
- <body>
+</head>
+
+<body>
     <h2>🧠 TabMind - Smart Tab Context Memory</h2>
+    <input type="text" id="searchInput" placeholder="🔍 Search tabs or notes...">
     <table id="notesTable">
         <thead>
             <tr>
