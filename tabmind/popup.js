@@ -54,5 +54,22 @@ document.addEventListener("DOMContentLoaded", () => {
             row.appendChild(dltCell);
             tbody.appendChild(row);
         }
+
+        // Add search filter
+        document.getElementById("searchInput").addEventListener("input", function () {
+            const query = this.value.toLowerCase();
+            const rows = document.querySelectorAll("#notesTable tbody tr");
+
+            rows.forEach(row => {
+                const url = row.cells[0]?.innerText.toLowerCase();
+                const note = row.cells[1]?.innerText.toLowerCase();
+
+                if (url.includes(query) || note.includes(query)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        });
     });
 });
