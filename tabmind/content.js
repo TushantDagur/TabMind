@@ -87,6 +87,15 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             reminder.appendChild(noteInput);
             reminder.appendChild(saveButton);
 
+            // —— Pre-fill existing note —— 
+            const tabUrl = window.location.href;
+            chrome.storage.local.get([tabUrl], (res) => {
+                const entry = res[tabUrl];
+                if (entry && entry.note) {
+                    noteInput.value = entry.note;
+                }
+            });
+
             saveButton.addEventListener("click", () => {
                 const note = noteInput.value.trim();
                 if (note) {
