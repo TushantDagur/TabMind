@@ -10,7 +10,7 @@ chrome.tabs.onActivated.addListener((activeInfo) => {
                 if (previousData) {
                     const lastTimeStamp = previousData.timeStamp;
                     const timeDifference = currentTimeStamp - lastTimeStamp;
-                    if (timeDifference > 1 * 60 * 1000) {
+                    if (timeDifference > 4 * 60 * 60 * 1000) {    //4 hrs in ms
                         chrome.scripting.executeScript({
                             target: { tabId: activeInfo.tabId },
                             files: ['content.js']

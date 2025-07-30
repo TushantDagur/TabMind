@@ -1,6 +1,6 @@
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.type === "STALE_TAB") {
-        const minutesAgo = Math.floor((Date.now() - message.lastVisit) / (1000 * 60));
+        const minutesAgo = Math.floor((Date.now() - message.lastVisit) / (1000 * 60 * 60));
 
         const existing = document.getElementById("tabmind-reminder");
         if (existing) existing.remove();
