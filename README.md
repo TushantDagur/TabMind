@@ -66,6 +66,9 @@ tabmind/
 ├── styles.css
 ├── icons/
 │   └── main.png
+├── screenshots/
+│   └── popup.png
+│   └── stale_reminder.png
 └── README.md
 ```
 
@@ -82,7 +85,7 @@ tabmind/
 ## 🧑‍💻 Author
 
 **Tushant Dagur**  
-🔗 [LinkedIn](https://www.linkedin.com/in/tushantdagur)  
+🔗 [LinkedIn](https://www.linkedin.com/in/tushant-dagur-915bb11bb)  
 💻 MCA Student | Builder of useful things
 
 ---
