@@ -21,7 +21,7 @@ It displays a reminder when you revisit a stale tab and lets you save short note
 ## 📸 Screenshots
 
 ![popup screenshot](screenshots/popup.png)
-![stale tab reminder](tscreenshots/stale_reminder.png)
+![stale_reminder](screenshots/stale_reminder.png)
 
 ---
 
