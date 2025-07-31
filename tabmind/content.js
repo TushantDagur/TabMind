@@ -1,6 +1,6 @@
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.type === "STALE_TAB") {
-        const minutesAgo = Math.floor((Date.now() - message.lastVisit) / (1000 * 60 * 60));
+        const hoursAgo = Math.floor((Date.now() - message.lastVisit) / (1000 * 60 * 60));
 
         const existing = document.getElementById("tabmind-reminder");
         if (existing) existing.remove();
@@ -22,7 +22,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         `;
 
         const messageText = document.createElement('div');
-        messageText.innerText = `⏳ You last visited this tab ${minutesAgo} minute(s) ago.`;
+        messageText.innerText = `⏳ You last visited this tab ${hoursAgo} hour(s) ago.`;
         reminder.appendChild(messageText);
 
         const closeButton = document.createElement("span");
